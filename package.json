@@ -1,0 +1,30 @@
+{
+  "name": "download-google-spreadsheet",
+  "version": "0.0.0",
+  "description": "Download your Google Spreadsheets with Node.js.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/h0ward/download-google-spreadsheet.git"
+  },
+  "keywords": [
+    "node",
+    "gulp",
+    "grunt",
+    "download",
+    "export",
+    "google",
+    "spreadsheet",
+    "sheet",
+    "drive"
+  ],
+  "author": "Howard Chan <h0ward@outlook.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/h0ward/download-google-spreadsheet/issues"
+  },
+  "homepage": "https://github.com/h0ward/download-google-spreadsheet#readme"
+}
