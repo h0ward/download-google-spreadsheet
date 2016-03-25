@@ -24,5 +24,16 @@ The `fileId` and `gid` attributes can be found in the link to your spreadsheet:
 
 Also, by default, if there is no `dest` attribute defined for the sheet, then `gid` will be used as the file name.
 
+The token will be cached as `.dgss_token` under currently working directory.
+
+TODOs
+-----
+* Options to configure cache
+* Make it works under CLI-only environment
+* Show more feedbacks to screen
+* Support `stdin` and pipe
+* Update docs
+* Update build script to produce readable scripts
+
 [1.1]: https://console.developers.google.com
 [1.2]: https://docs.google.com/spreadsheets/d/11KmsfhX7M0q3dwLSYiUAIIbov8qHvvhLcxqJzv9o1Pw/edit#gid=0

@@ -2,6 +2,7 @@ import gapi from 'googleapis';
 import http from 'http';
 import open from 'open';
 import {parse} from 'url';
+import {readFileSync, writeFileSync} from 'fs';
 
 const getAuthCode = (redirect, cb) => {
   const {hostname, port} = parse(redirect);
@@ -21,10 +22,20 @@ export default function auth (id, secret, redirect, cb) {
     access_type: 'offline',
     scope: ['https://www.googleapis.com/auth/drive.readonly']
   });
+  // try to use cached token
+  try {
+    const tokens = JSON.parse(readFileSync('.dgss_token'));
+    if (tokens.expiry_date && new Date().getTime() < tokens.expiry_date) {
+      auth.setCredentials(tokens);
+      return cb(null, auth);
+    }
+  } catch (err) {}
   open(url);
   getAuthCode(redirect, (code) => {
     auth.getToken(code, (err, tokens) => {
       if (err) return cb(err);
+      try {writeFileSync('.dgss_token', JSON.stringify(tokens, null, 2));}
+      catch (err) {}
       auth.setCredentials(tokens);
       cb(null, auth);
     });

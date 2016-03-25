@@ -1,3 +1,5 @@
+*.csv
+.dgss_token
 .env
 
 # Created by https://www.gitignore.io/api/osx
