@@ -1,8 +1,10 @@
 import gapi from 'googleapis';
 import http from 'http';
 import open from 'open';
+import {parse} from 'url';
 
-const getAuthCode = (cb) => {
+const getAuthCode = (redirect, cb) => {
+  const {hostname, port} = parse(redirect);
   const server = http.createServer((req, resp) => {
     resp.end();
     req.connection.destroy();
@@ -10,7 +12,7 @@ const getAuthCode = (cb) => {
     cb(req.url.substr(7));
   });
   server.maxConnections = 1;
-  server.listen(4477);
+  server.listen(port, hostname);
 };
 
 export default function auth (id, secret, redirect, cb) {
@@ -20,7 +22,7 @@ export default function auth (id, secret, redirect, cb) {
     scope: ['https://www.googleapis.com/auth/drive.readonly']
   });
   open(url);
-  getAuthCode((code) => {
+  getAuthCode(redirect, (code) => {
     auth.getToken(code, (err, tokens) => {
       if (err) return cb(err);
       auth.setCredentials(tokens);
