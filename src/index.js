@@ -27,7 +27,7 @@ export default function downloadGoogleSpreadsheet (sheets, ...args) {
     throw new Error('Invalid arguments');
 
   // main logics
-  auth(opts.id, opts.secret, opts.redirect, (err, auth) => {
+  auth(opts.id, opts.secret, opts.redirect, '.dgsstoken', (err, auth) => {
     if (err) return cb(err);
     const gdrive = drive({version: 'v2', auth});
     const headers = {Authorization: `Bearer ${auth.credentials.access_token}`};

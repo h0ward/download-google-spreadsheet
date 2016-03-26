@@ -16,15 +16,15 @@ const getAuthCode = (redirect, cb) => {
   server.listen(port, hostname);
 };
 
-export default function auth (id, secret, redirect, cb) {
+export default function auth (id, secret, redirect, cache, cb) {
   const auth = new gapi.auth.OAuth2(id, secret, redirect);
   const url = auth.generateAuthUrl({
     access_type: 'offline',
     scope: ['https://www.googleapis.com/auth/drive.readonly']
   });
   // try to use cached token
-  try {
-    const tokens = JSON.parse(readFileSync('.dgss_token'));
+  if (cache) try {
+    const tokens = JSON.parse(readFileSync(cache));
     if (tokens.expiry_date && new Date().getTime() < tokens.expiry_date) {
       auth.setCredentials(tokens);
       return cb(null, auth);
@@ -34,8 +34,9 @@ export default function auth (id, secret, redirect, cb) {
   getAuthCode(redirect, (code) => {
     auth.getToken(code, (err, tokens) => {
       if (err) return cb(err);
-      try {writeFileSync('.dgss_token', JSON.stringify(tokens, null, 2));}
-      catch (err) {}
+      if (cache)
+        try {writeFileSync(cache, JSON.stringify(tokens, null, 2));}
+        catch (err) {}
       auth.setCredentials(tokens);
       cb(null, auth);
     });

@@ -3,7 +3,10 @@ download-google-spreadsheet
 
 > Download your Google Spreadsheets with Node.js.
 
-Getting the API key:
+Usage
+-----
+
+Get the API key:
 
 1. Visit [Google Developers Console][1.1] and create a project
 *  Go to `Overview` then get into `Drive API` and `Enable`
@@ -12,28 +15,58 @@ Getting the API key:
 *  Set `Authorized redirect URIs` to `http://localhost:3477/` or your own value
 *  Continue to `Create` and save your new credential
 
-You may save the credential to a [`.env`](./.env.example) file under current directory and assign the values to `DGSS_CLIENT_ID`, `DGSS_CLIENT_SECRET` and `DGSS_REDIRECT_URL` accordingly, then:
+Then export to environment variables: `DGSS_CLIENT_ID`, `DGSS_CLIENT_SECRET` and `DGSS_REDIRECT_URL`. Or save them into [`.env`](./.env.example) under the working directory if you want, then:
+
 ```sh
-${npm bin}/download-google-spreadsheet '[{"fileId":"11KmsfhX7M0q3dwLSYiUAIIbov8qHvvhLcxqJzv9o1Pw","gid":"0"}]'
+$(npm bin)/download-google-spreadsheet '[{"fileId":"11KmsfhX7M0q3dwLSYiUAIIbov8qHvvhLcxqJzv9o1Pw","gid":"0"}]'
 ```
 
-And you will find the [test spreadsheet][1.2] has been downloaded as `0.csv` under the current directory.
+If no cached token `.dgsstoken` can be found under current directory, you will be prompted to a Google OAuth page for you to authorize your API key to access the spreadsheets. The token will then be cached and you will not be prompted again until the expiration.
 
-The `fileId` and `gid` attributes can be found in the link to your spreadsheet:
+After that, the [test spreadsheet][1.2] will be downloaded into current working directory as `0.csv`. The CSV file will be named as `gid` by default if there is no `dest` attribute defined for that sheet.
+
+You can find the `fileId` and `gid` attributes from the link to your spreadsheet:
 `https://docs.google.com/spreadsheets/d/11KmsfhX7M0q3dwLSYiUAIIbov8qHvvhLcxqJzv9o1Pw/edit#gid=0`
 
-Also, by default, if there is no `dest` attribute defined for the sheet, then `gid` will be used as the file name.
+### API
 
-The token will be cached as `.dgss_token` under currently working directory.
+```js
+var downloadGoogleSpreadsheet = require('download-google-spreadsheet');
+
+var sheets = [{
+  dest: './test.csv',
+  fileId: '11KmsfhX7M0q3dwLSYiUAIIbov8qHvvhLcxqJzv9o1Pw',
+  gid: '0',
+}];
+
+var opts = {
+  id: '686354652584-fule4tvfhelci96apnb368bsu3d1st9c.apps.googleusercontent.com',
+  redirect: 'http://localhost:3477/',
+  secret: 'OeBRLzWNkwMOdjDe5HyHqIiZ',
+};
+
+downloadGoogleSpreadsheet(sheets, opts, function (err) {
+  if (err) throw err;
+  console.log('Done.');
+});
+```
+
+### Options
+
+* `id` Google OAuth client ID
+* `redirect` Must be one of the `Authorized redirect URIs` in credential settings
+* `secret` Google OAuth client secret
 
 TODOs
 -----
-* Options to configure cache
-* Make it works under CLI-only environment
-* Show more feedbacks to screen
 * Support `stdin` and pipe
-* Update docs
+* Support CLI-only environment
+* Show feedbacks to screen
+* Expose more options
 * Update build script to produce readable scripts
+* Update readme
+* Cache multiple tokens for multiple spreadsheets
+* Code linting
 
 [1.1]: https://console.developers.google.com
 [1.2]: https://docs.google.com/spreadsheets/d/11KmsfhX7M0q3dwLSYiUAIIbov8qHvvhLcxqJzv9o1Pw/edit#gid=0
