@@ -1,5 +1,5 @@
-download-google-spreadsheet
-===========================
+download-google-spreadsheet 0.1.0
+=================================
 
 > Download your Google Spreadsheets with Node.js.
 
@@ -61,6 +61,13 @@ Development
 -----------
 
 `npm run dev`, code [`./src/**/*.js`](./src), then `./bin/download-google-spreadsheet.js` to try.
+
+Releases
+--------
+
+| Date       | Version | Description     |
+|------------|---------|-----------------|
+| 2016-03-27 | 0.1.0   | Initial release |
 
 TODOs
 -----
