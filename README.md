@@ -34,7 +34,7 @@ You can find the `fileId` and `gid` attributes from the link to your spreadsheet
 var downloadGoogleSpreadsheet = require('download-google-spreadsheet');
 
 var sheets = [{
-  dest: './test.csv',
+  dest: './somedir/test.csv',
   fileId: '11KmsfhX7M0q3dwLSYiUAIIbov8qHvvhLcxqJzv9o1Pw',
   gid: '0',
 }];
@@ -57,6 +57,11 @@ downloadGoogleSpreadsheet(sheets, opts, function (err) {
 * `redirect` Must be one of the `Authorized redirect URIs` in credential settings
 * `secret` Google OAuth client secret
 
+Development
+-----------
+
+`npm run dev`, code [`./src/**/*.js`](./src), then `./bin/download-google-spreadsheet.js` to try.
+
 TODOs
 -----
 * Support `stdin` and pipe
@@ -67,6 +72,7 @@ TODOs
 * Update readme
 * Cache multiple tokens for multiple spreadsheets
 * Code linting
+* Test
 
 [1.1]: https://console.developers.google.com
 [1.2]: https://docs.google.com/spreadsheets/d/11KmsfhX7M0q3dwLSYiUAIIbov8qHvvhLcxqJzv9o1Pw/edit#gid=0

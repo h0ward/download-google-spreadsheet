@@ -43,6 +43,7 @@
     "async": "^1.5.2",
     "dotenv": "^2.0.0",
     "googleapis": "^4.0.0",
+    "mkdirp": "^0.5.1",
     "open": "0.0.5",
     "request": "^2.69.0"
   }
