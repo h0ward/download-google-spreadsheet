@@ -74,7 +74,4 @@ function downloadGoogleSpreadsheet(sheets) {
     };
     _async2.default.waterfall(sheets.map(createTask), cb);
   });
-
-  // continue
-  cb(null);
 }
