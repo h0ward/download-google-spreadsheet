@@ -41,7 +41,4 @@ export default function downloadGoogleSpreadsheet (sheets, ...args) {
     }
     async.waterfall(sheets.map(createTask), cb);
   });
-
-  // continue
-  cb(null);
 }
