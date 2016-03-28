@@ -1,4 +1,4 @@
-download-google-spreadsheet 0.1.0
+download-google-spreadsheet 0.1.1
 =================================
 
 > Download your Google Spreadsheets with Node.js.
@@ -67,6 +67,7 @@ Releases
 
 | Date       | Version | Description     |
 |------------|---------|-----------------|
+| 2016-03-28 | 0.1.1   | Fix callback    |
 | 2016-03-27 | 0.1.0   | Initial release |
 
 TODOs
